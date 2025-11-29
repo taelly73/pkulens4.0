@@ -6,7 +6,6 @@ import { MyActivities } from './views/MyActivities';
 import { ActivityDetail } from './views/ActivityDetail';
 import { CategoryDetail } from './views/CategoryDetail';
 import { Login } from './views/Login';
-import { GeminiAssistant } from './components/GeminiAssistant';
 import { ViewState, User, Activity, ActivityCategory } from './types';
 import { MOCK_USER, ACTIVITIES } from './constants';
 import { Languages } from 'lucide-react';
@@ -246,10 +245,6 @@ const App: React.FC = () => {
       <main className="min-h-screen">
         {renderView()}
       </main>
-
-      {isLoggedIn && currentView !== ViewState.LOGIN && (
-        <GeminiAssistant user={user} activities={activities} isEnglish={isEnglish} />
-      )}
     </div>
   );
 };

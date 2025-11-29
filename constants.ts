@@ -166,7 +166,7 @@ const parseDateTime = (rawTime: string) => {
 };
 
 const getRegistrationInfo = (regStr: string, eventDateStr: string): { deadline: string, status: 'registering' | 'closed' | 'upcoming' | 'ended' } => {
-  const cleanReg = regStr.trim();
+  const cleanReg = regStr ? regStr.trim() : '空';
   const now = new Date(MOCK_CURRENT_DATE);
   // Reset time part to ensure pure date comparison
   now.setHours(0,0,0,0);

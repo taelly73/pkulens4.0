@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Activity, ActivityCategory, User, UserRole } from '../types';
 import { ActivityCard } from '../components/ActivityCard';
-import { Search, MapPin, Sparkles, TrendingUp, Calendar, ArrowRight, Layers, Users, BookOpen, Trophy, Briefcase, Heart, Palette, Bookmark, X, Filter } from 'lucide-react';
+import { Search, MapPin, Sparkles, TrendingUp, Calendar, ArrowRight, Layers, Users, BookOpen, Trophy, Briefcase, Heart, Palette, Bookmark, X, Filter, Star } from 'lucide-react';
 import { MOCK_CURRENT_DATE } from '../constants';
 
 interface HomeProps {
@@ -98,8 +98,8 @@ export const Home: React.FC<HomeProps> = ({
     { id: ActivityCategory.VOLUNTEER, label: isEnglish ? 'Volunteer' : '志愿服务', icon: Heart, color: 'bg-red-50 text-red-600' },
   ];
 
-  // Logic for AI Pick / Trending: Ensure they are also "Open" if possible
-  const aiPick = openActivities.find(a => a.category === ActivityCategory.ACADEMIC) || activities[0];
+  // Logic for Featured / Trending: Ensure they are also "Open" if possible
+  const featuredPick = openActivities.find(a => a.category === ActivityCategory.ACADEMIC) || activities[0];
   const trendingPick = openActivities.find(a => a.category === ActivityCategory.SOCIAL) || activities[1];
 
   return (
@@ -229,22 +229,22 @@ export const Home: React.FC<HomeProps> = ({
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-yellow-500" />
-                  {isEnglish ? 'Selected for You' : '为你推荐'}
+                  <Star className="w-5 h-5 text-yellow-500" />
+                  {isEnglish ? 'Featured & Trending' : '精选与热门'}
                 </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* AI Pick */}
+                {/* Featured Pick (Renamed from AI Pick) */}
                 <div 
-                  onClick={() => onViewDetail(aiPick.id)}
+                  onClick={() => onViewDetail(featuredPick.id)}
                   className="bg-gradient-to-br from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-100 relative overflow-hidden group hover:shadow-lg transition-all cursor-pointer"
                 >
                   <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                    <Sparkles className="w-24 h-24" />
+                    <Star className="w-24 h-24" />
                   </div>
-                  <span className="bg-indigo-600 text-white text-xs px-2 py-1 rounded font-bold mb-3 inline-block">AI Pick</span>
-                  <h4 className="font-bold text-lg text-indigo-900 mb-1 line-clamp-1">{aiPick.title}</h4>
-                  <p className="text-sm text-indigo-700 mb-4 line-clamp-2">{aiPick.description || 'No description available'}</p>
+                  <span className="bg-indigo-600 text-white text-xs px-2 py-1 rounded font-bold mb-3 inline-block">Featured</span>
+                  <h4 className="font-bold text-lg text-indigo-900 mb-1 line-clamp-1">{featuredPick.title}</h4>
+                  <p className="text-sm text-indigo-700 mb-4 line-clamp-2">{featuredPick.description || 'No description available'}</p>
                   <button className="text-indigo-600 text-sm font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
                     {isEnglish ? 'Check Details' : '查看详情'} <ArrowRight className="w-4 h-4" />
                   </button>
