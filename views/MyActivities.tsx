@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { User, Activity, Review, Reward } from '../types';
 import { Calendar, CheckCircle, Clock, Star, Gift, Archive, MessageSquare, Bookmark, X } from 'lucide-react';
-import { MOCK_REWARDS } from '../constants';
+import { MOCK_REWARDS, MOCK_CURRENT_DATE } from '../constants';
 
 interface MyActivitiesProps {
   user: User;
@@ -25,7 +26,7 @@ export const MyActivities: React.FC<MyActivitiesProps> = ({
   const upcomingActivities = activities.filter(a => user.joinedActivities.includes(a.id));
   const pastActivities = activities.filter(a => user.completedActivities.includes(a.id));
   const savedActivities = activities.filter(a => user.savedActivities.includes(a.id));
-  
+
   // Render Column Headers for Desktop, Tabs for Mobile
   const ColumnHeader: React.FC<{ icon: any, title: string, count?: number, active?: boolean, onClick?: () => void }> = ({ icon: Icon, title, count, active, onClick }) => (
     <div 
@@ -39,7 +40,7 @@ export const MyActivities: React.FC<MyActivitiesProps> = ({
   );
 
   return (
-    <div className="pb-24 pt-16 md:pt-24 px-4 max-w-[1600px] mx-auto min-h-screen">
+    <div className="pb-24 pt-16 md:pt-24 px-4 max-w-7xl mx-auto min-h-screen">
       
       <div className="mb-8 flex items-center gap-4">
         <div className="w-16 h-16 rounded-full bg-pku-red text-white flex items-center justify-center text-2xl font-bold border-4 border-white shadow-md">
@@ -55,7 +56,7 @@ export const MyActivities: React.FC<MyActivitiesProps> = ({
           </div>
         </div>
       </div>
-
+      
       {/* Mobile Tab Switcher (5 Columns) */}
       <div className="md:hidden grid grid-cols-5 gap-1 mb-6 overflow-x-auto">
         <button onClick={() => setActiveTab('reviews')} className={`flex flex-col items-center p-2 rounded-lg ${activeTab === 'reviews' ? 'bg-pku-red text-white' : 'bg-white text-gray-600'}`}>
@@ -81,12 +82,12 @@ export const MyActivities: React.FC<MyActivitiesProps> = ({
       </div>
 
       {/* Desktop Grid Layout (5 Columns) */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 h-[calc(100vh-250px)]">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 min-h-[400px]">
         
         {/* Column 1: Reviews */}
         <div className={`flex flex-col ${activeTab === 'reviews' ? 'flex' : 'hidden md:flex'}`}>
            <div className="hidden md:block mb-4">
-             <ColumnHeader icon={MessageSquare} title={isEnglish ? 'Reviews' : '我的评价'} count={user.reviews.length} active />
+             <ColumnHeader icon={MessageSquare} title={isEnglish ? 'My Reviews' : '我的评价'} count={user.reviews.length} active />
            </div>
            <div className="bg-white rounded-xl border border-gray-200 flex-grow overflow-y-auto p-4 space-y-4 shadow-sm">
              {user.reviews.map(review => (
